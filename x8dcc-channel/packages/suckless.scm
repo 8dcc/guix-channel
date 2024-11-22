@@ -1,4 +1,4 @@
-(define-module (x8dcc-channel suckless)
+(define-module (x8dcc-channel packages suckless)
   #:use-module (guix packages)
   #:use-module (guix git-download)
   #:use-module (guix build-system gnu)
