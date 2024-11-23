@@ -87,3 +87,36 @@ drawing.")
                  freetype
                  ;; For the `tic' command, used when installing.
                  ncurses))))
+
+(define-public dmenu
+  (package
+   (name "dmenu")
+   (version "5.0.0")
+   (synopsis "8dcc's fork of suckless' dmenu")
+   (description "A dynamic menu for X, originally designed for dwm. It manages
+large numbers of user-defined menu items efficiently.")
+   (home-page "https://tools.suckless.org/dmenu/")
+   (license (list licenses:x11))
+   (source
+    (origin
+     (method git-fetch)
+     (uri (git-reference
+           (url "https://github.com/8dcc/linux-dotfiles.git")
+           (commit "f266016396babce5dec94dc583d938fc223f77ac")))
+     (sha256 (base32 "10n31d0ig0f4xkapz8cw2kmy2qkjhk7j561rkg69w3kw03fp5mam"))))
+   (build-system gnu-build-system)
+   (arguments
+    `(#:make-flags
+      (list (string-append "CC=" ,(cc-for-target))
+            (string-append "PREFIX=" %output))
+      #:phases
+      (modify-phases %standard-phases
+                     (delete 'configure)
+                     (add-after 'unpack 'change-dir
+                                (lambda _
+                                  (chdir "apps/DMENU/"))))
+      #:tests? #f))
+   (inputs (list pkg-config
+                 libx11
+                 libxft
+                 libxinerama))))
