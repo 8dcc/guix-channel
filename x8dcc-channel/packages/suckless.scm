@@ -14,7 +14,7 @@
   (package
    (name "dwm")
    (version "6.2.0")
-   (synopsis "Dynamic Window Manager for X.")
+   (synopsis "8dcc's fork of suckless' dynamic window manager")
    (description "DWM is a dynamic window manager for X. It manages windows in
 tiled, monocle and floating layouts. All of the layouts can be applied
 dynamically, optimising the environment for the application in use and the task
@@ -30,27 +30,23 @@ performed.")
      (sha256 (base32 "1wnqfw8p7irz9jm3ic6v2dpkywwgvn986l9na1y1vfxvqqrll6p0"))))
    (build-system gnu-build-system)
    (arguments
-    '(#:phases
+    `(#:make-flags
+      (list (string-append "CC=" ,(cc-for-target))
+            (string-append "PREFIX=" %output))
+      #:phases
       (modify-phases %standard-phases
                      (delete 'configure)
                      (add-after 'unpack 'change-dir
                                 (lambda _
-                                  (chdir "apps/DWM-6.2/")))
-                     (replace 'install
-                              (lambda* (#:key outputs #:allow-other-keys)
-                                (let ((out (assoc-ref outputs "out")))
-                                  (invoke "make"
-                                          "install"
-                                          (string-append "DESTDIR=" out)
-                                          "PREFIX=")))))
+                                  (chdir "apps/DWM-6.2/"))))
       #:tests? #f))
-   (inputs (list xorg-server
+   (inputs (list pkg-config
+                 xorg-server
                  xinit
                  libx11
                  libxft
                  libxinerama
-                 freetype
-                 pkg-config))))
+                 freetype))))
 
 (define-public st
   (package
