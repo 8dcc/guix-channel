@@ -8,6 +8,7 @@
   #:use-module (gnu packages xorg)
   #:use-module (gnu packages fontutils)
   #:use-module (gnu packages ncurses)
+  #:use-module (gnu packages crypto)
   #:use-module (gnu packages pkg-config))
 
 (define-public dwm
@@ -120,3 +121,39 @@ large numbers of user-defined menu items efficiently.")
                  libx11
                  libxft
                  libxinerama))))
+
+(define-public slock
+  (package
+   (name "slock")
+   (version "1.4.0")
+   (synopsis "8dcc's fork of suckless' slock")
+   (description
+    "Simple X session lock with trivial feedback on password entry.")
+   (home-page "https://tools.suckless.org/slock/")
+   (license (list licenses:x11))
+   (source
+    (origin
+     (method git-fetch)
+     (uri (git-reference
+           (url "https://github.com/8dcc/linux-dotfiles.git")
+           (commit "453734ca7b8a3b6e740a8dc8c38f5080d35a2cef")))
+     (sha256 (base32 "1siqshz4lkjh3a0x1hraqx2pabsc9v5h5f0c7ajzwdj6yjjmigsy"))))
+   (build-system gnu-build-system)
+   (arguments
+    `(#:make-flags
+      (list (string-append "CC=" ,(cc-for-target))
+            (string-append "PREFIX=" %output)
+            "SLOCKUSER=")
+      #:phases
+      (modify-phases %standard-phases
+                     (delete 'configure)
+                     (add-after 'unpack 'change-dir
+                                (lambda _
+                                  (chdir "apps/SLOCK/"))))
+      #:tests? #f))
+   (inputs (list pkg-config
+                 libx11
+                 libxft
+                 libxrandr
+                 libxinerama
+                 libxcrypt))))
