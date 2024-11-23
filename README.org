@@ -15,7 +15,7 @@ To use it in your machine, add something like this to
   (url "https://github.com/8dcc/guix-channel")
   (introduction
    (make-channel-introduction
-    "d6846b5b19b8aad8b31817524916a0fd9bfcdc22"
+    "ba5e7eef57c8e4ecc43bf223c7ed9610d18c3d41"
     (openpgp-fingerprint
      "D44F 386E FF1A 1A2F A405  5E84 228C 1049 6531 7F9A"))))
 
