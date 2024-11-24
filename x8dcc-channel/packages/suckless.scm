@@ -139,15 +139,15 @@ large numbers of user-defined menu items efficiently.")
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles.git")
-             (commit "c0c9950bb0496b5491b95a43fd77a5a2806f60e5")))
+             (commit "05df6124399591e1396d0d4f98cb6bbeb1d06023")))
        (sha256
-        (base32 "0cjs0g0a69bfp2xaamrx9nycvjgi7zcvb6jhkjs5kmhmamyniyxv"))))
+        (base32 "1mivfsagnf30fggcbk2bx0zgj5jzyx2r4r7ph0jkjvssy5bl59z1"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
        (list (string-append "CC=" ,(cc-for-target))
              (string-append "PREFIX=" %output)
-             "SLOCKUSER=")
+             "CREATEUSER=no")
        #:phases
        (modify-phases %standard-phases
          (delete 'configure)
