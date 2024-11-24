@@ -28,7 +28,8 @@ performed.")
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles.git")
              (commit "9808bdb55261ff31f0208f9ae4180d755169bd8d")))
-       (sha256 (base32 "1wnqfw8p7irz9jm3ic6v2dpkywwgvn986l9na1y1vfxvqqrll6p0"))))
+       (sha256
+        (base32 "1wnqfw8p7irz9jm3ic6v2dpkywwgvn986l9na1y1vfxvqqrll6p0"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
@@ -66,7 +67,8 @@ drawing.")
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles.git")
              (commit "50d8d779ef01e03a73c7361b4220e13aebbb92de")))
-       (sha256 (base32 "0riw50vc0wq25cn4plfqml12357b9s9lzdwg9qh7vcqhig0j9991"))))
+       (sha256
+        (base32 "0riw50vc0wq25cn4plfqml12357b9s9lzdwg9qh7vcqhig0j9991"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
@@ -104,7 +106,8 @@ large numbers of user-defined menu items efficiently.")
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles.git")
              (commit "5eecfda6bf0facc8219ba65814ca77797b59d86f")))
-       (sha256 (base32 "17s0ar8x9zfsgdiflmj37s6wpx53jc8fa1pfjg1a2df1q9pd5dpp"))))
+       (sha256
+        (base32 "17s0ar8x9zfsgdiflmj37s6wpx53jc8fa1pfjg1a2df1q9pd5dpp"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
@@ -137,7 +140,8 @@ large numbers of user-defined menu items efficiently.")
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles.git")
              (commit "453734ca7b8a3b6e740a8dc8c38f5080d35a2cef")))
-       (sha256 (base32 "1siqshz4lkjh3a0x1hraqx2pabsc9v5h5f0c7ajzwdj6yjjmigsy"))))
+       (sha256
+        (base32 "1siqshz4lkjh3a0x1hraqx2pabsc9v5h5f0c7ajzwdj6yjjmigsy"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
