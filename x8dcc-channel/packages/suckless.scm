@@ -139,9 +139,9 @@ large numbers of user-defined menu items efficiently.")
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles.git")
-             (commit "05df6124399591e1396d0d4f98cb6bbeb1d06023")))
+             (commit "db3bb33a086b18840440b6f3bfb3838bfc456ca6")))
        (sha256
-        (base32 "1mivfsagnf30fggcbk2bx0zgj5jzyx2r4r7ph0jkjvssy5bl59z1"))))
+        (base32 "17x4181lchxqjcn722gmz7y818wx2y4vn437zkcn9pcs5048bc0d"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
