@@ -21,7 +21,7 @@
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/8dcc/snc.git")
+             (url "https://github.com/8dcc/snc")
              (commit "v1.0.0")))
        (sha256
         (base32 "1zdf0y2miyydmnj2c17ph3hhysii2nns88399z043cnzjds8py8n"))))
@@ -47,7 +47,7 @@
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/8dcc/plumber.git")
+             (url "https://github.com/8dcc/plumber")
              (commit "v1.0.0")))
        (sha256
         (base32 "17x0v8lknnjzjnjrh0kw7pinfw2i6c3b1hv8a0xmvl4p0v6ms44s"))))
@@ -74,7 +74,7 @@ different regions of a binary file.")
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/8dcc/bin-graph.git")
+             (url "https://github.com/8dcc/bin-graph")
              (commit "45b89b862e1ec445eb099cefecceaaae83840ba2")))
        (sha256
         (base32 "16hwj4pr0yppgfaa0hybcknwg63x8bbg2shknk6dknvvhqccddpd"))))

@@ -26,7 +26,7 @@ performed.")
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/8dcc/linux-dotfiles.git")
+             (url "https://github.com/8dcc/linux-dotfiles")
              (commit "9808bdb55261ff31f0208f9ae4180d755169bd8d")))
        (sha256
         (base32 "1wnqfw8p7irz9jm3ic6v2dpkywwgvn986l9na1y1vfxvqqrll6p0"))))
@@ -67,7 +67,7 @@ drawing.")
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/8dcc/linux-dotfiles.git")
+             (url "https://github.com/8dcc/linux-dotfiles")
              (commit "50d8d779ef01e03a73c7361b4220e13aebbb92de")))
        (sha256
         (base32 "0riw50vc0wq25cn4plfqml12357b9s9lzdwg9qh7vcqhig0j9991"))))
@@ -108,7 +108,7 @@ large numbers of user-defined menu items efficiently.")
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/8dcc/linux-dotfiles.git")
+             (url "https://github.com/8dcc/linux-dotfiles")
              (commit "5eecfda6bf0facc8219ba65814ca77797b59d86f")))
        (sha256
         (base32 "17s0ar8x9zfsgdiflmj37s6wpx53jc8fa1pfjg1a2df1q9pd5dpp"))))
@@ -144,7 +144,7 @@ large numbers of user-defined menu items efficiently.")
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/8dcc/linux-dotfiles.git")
+             (url "https://github.com/8dcc/linux-dotfiles")
              (commit "db3bb33a086b18840440b6f3bfb3838bfc456ca6")))
        (sha256
         (base32 "17x4181lchxqjcn722gmz7y818wx2y4vn437zkcn9pcs5048bc0d"))))
