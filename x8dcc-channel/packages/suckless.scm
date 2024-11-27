@@ -42,13 +42,15 @@ performed.")
            (lambda _
              (chdir "apps/DWM-6.2/"))))
        #:tests? #f))
-    (inputs (list pkg-config
-                  xorg-server
-                  xinit
-                  libx11
-                  libxft
-                  libxinerama
-                  freetype))))
+    (native-inputs
+     (list pkg-config))
+    (inputs
+     (list xorg-server
+           xinit
+           libx11
+           libxft
+           libxinerama
+           freetype))))
 
 (define-public st
   (package
@@ -84,12 +86,14 @@ drawing.")
            (lambda _
              (chdir "apps/ST-0.8.2/"))))
        #:tests? #f))
-    (inputs (list pkg-config
-                  libx11
-                  libxft
-                  freetype
-                  ;; For the `tic' command, used when installing.
-                  ncurses))))
+    (native-inputs
+     (list pkg-config))
+    (inputs
+     (list libx11
+           libxft
+           freetype
+           ;; For the `tic' command, used when installing.
+           ncurses))))
 
 (define-public dmenu
   (package
@@ -120,10 +124,12 @@ large numbers of user-defined menu items efficiently.")
            (lambda _
              (chdir "apps/DMENU/"))))
        #:tests? #f))
-    (inputs (list pkg-config
-                  libx11
-                  libxft
-                  libxinerama))))
+    (native-inputs
+     (list pkg-config))
+    (inputs
+     (list libx11
+           libxft
+           libxinerama))))
 
 (define-public slock
   (package
@@ -155,9 +161,11 @@ large numbers of user-defined menu items efficiently.")
            (lambda _
              (chdir "apps/SLOCK/"))))
        #:tests? #f))
-    (inputs (list pkg-config
-                  libx11
-                  libxft
-                  libxrandr
-                  libxinerama
-                  libxcrypt))))
+    (native-inputs
+     (list pkg-config))
+    (inputs
+     (list libx11
+           libxft
+           libxrandr
+           libxinerama
+           libxcrypt))))
