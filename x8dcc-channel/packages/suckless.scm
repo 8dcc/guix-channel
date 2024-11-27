@@ -16,8 +16,8 @@
     (name "dwm")
     (version "6.2.0")
     (synopsis "8dcc's fork of suckless' dynamic window manager")
-    (description "DWM is a dynamic window manager for X. It manages windows in
-tiled, monocle and floating layouts. All of the layouts can be applied
+    (description "DWM is a dynamic window manager for X.  It manages windows in
+tiled, monocle and floating layouts.  All of the layouts can be applied
 dynamically, optimising the environment for the application in use and the task
 performed.")
     (home-page "https://dwm.suckless.org/")
@@ -55,7 +55,7 @@ performed.")
     (name "st")
     (version "0.8.2.0")
     (synopsis "8dcc's fork of suckless' simple terminal")
-    (description "St implements a simple and lightweight terminal emulator. It
+    (description "St implements a simple and lightweight terminal emulator.  It
 implements 256 colors, most VT10X escape sequences, utf8, X11 copy/paste,
 antialiased fonts (using fontconfig), fallback fonts, resizing, and line
 drawing.")
@@ -96,7 +96,7 @@ drawing.")
     (name "dmenu")
     (version "5.0.0")
     (synopsis "8dcc's fork of suckless' dmenu")
-    (description "A dynamic menu for X, originally designed for dwm. It manages
+    (description "A dynamic menu for X, originally designed for dwm.  It manages
 large numbers of user-defined menu items efficiently.")
     (home-page "https://tools.suckless.org/dmenu/")
     (license (list license:x11))
