@@ -38,7 +38,7 @@
                   zlib
                   xmlrpc-c))
     (native-inputs (list pkg-config cppunit))
-    (synopsis "BitTorrent client with ncurses interface")
+    (synopsis "BitTorrent client with ncurses interface (XMLRPC build)")
     (description
      "rTorrent is a BitTorrent client with an ncurses interface.  It supports
 full encryption, DHT, PEX, and Magnet Links.  It can also be controlled via
