@@ -45,5 +45,3 @@ full encryption, DHT, PEX, and Magnet Links.  It can also be controlled via
 XML-RPC over SCGI.")
     (home-page "https://github.com/rakshasa/rtorrent")
     (license license:gpl2+)))
-
-rtorrent-xmlrpc
