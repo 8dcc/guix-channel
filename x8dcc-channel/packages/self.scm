@@ -22,7 +22,7 @@
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/8dcc/snc")
-             (commit "v1.1.0")))
+             (commit (string-append "v" version))))
        (sha256
         (base32 "1jszmkyb7zhby2ryi3ps9g9cw12kgq3i9a7mm91mrqc5j4qn7bxn"))))
     (build-system gnu-build-system)
@@ -48,7 +48,7 @@
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/8dcc/plumber")
-             (commit "v1.0.0")))
+             (commit (string-append "v" version))))
        (sha256
         (base32 "17x0v8lknnjzjnjrh0kw7pinfw2i6c3b1hv8a0xmvl4p0v6ms44s"))))
     (build-system gnu-build-system)
