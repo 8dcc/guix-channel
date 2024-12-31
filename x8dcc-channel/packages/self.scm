@@ -12,7 +12,7 @@
 (define-public snc
   (package
     (name "snc")
-    (version "1.1.0")
+    (version "1.1.1")
     (synopsis "Simple netcat(1) alternative")
     (description "Simple netcat(1) alternative in C using sockets.")
     (home-page "https://github.com/8dcc/snc")
@@ -24,7 +24,7 @@
              (url "https://github.com/8dcc/snc")
              (commit (string-append "v" version))))
        (sha256
-        (base32 "1jszmkyb7zhby2ryi3ps9g9cw12kgq3i9a7mm91mrqc5j4qn7bxn"))))
+        (base32 "13954v9rsyv9alnasnr437393lwx66mnnl4ikp93viap5yqs0jw5"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
