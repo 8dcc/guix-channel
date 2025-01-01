@@ -24,7 +24,7 @@
              (url "https://github.com/8dcc/snc")
              (commit (string-append "v" version))))
        (sha256
-        (base32 "1qvdkgrggakgiz0w5gk0h7k3vy6cb3j8lrbrf5ag1z6p9mbcnnjs"))))
+        (base32 "15n69bsvbiklm3wiyy2kdfzclh34ygjc9ivn4cvnczllw435cfy6"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
