@@ -3,7 +3,7 @@
   #:export (%patch-path))
 
 (define %patch-path
-  (let ((packages-file (search-path %load-path "x8dcc-channel/packages.scm")))
-    (and packages-file
-         (list (string-append (dirname packages-file)
-                              "/packages/patches")))))
+  (and=> (search-path %load-path "x8dcc-channel/packages.scm")
+         (lambda (packages-file)
+           (list (string-append (dirname packages-file)
+                                "/packages/patches")))))
