@@ -1,10 +1,12 @@
 (define-module (x8dcc-channel packages bittorrent)
+  #:use-module ((x8dcc-channel packages) #:prefix x8dcc-channel:)
   #:use-module (guix packages)
   #:use-module (guix utils)
   #:use-module (guix download)
   #:use-module (guix build-system gnu)
   #:use-module (guix build utils)
   #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bittorrent)
   #:use-module (gnu packages ncurses)
@@ -16,6 +18,9 @@
   #:use-module (gnu packages check)
   #:use-module (gnu packages pkg-config))
 
+;; FIXME: Make another 'rtorrent-vi-color' package that "derives" from an
+;; un-patched 'rtorrent-xmlrpc' package. I don't currently know how this is
+;; done.
 (define-public rtorrent-xmlrpc
   (package
     (name "rtorrent-xmlrpc")
@@ -27,7 +32,16 @@
                     version ".tar.gz"))
               (sha256
                (base32
-                "1bs2fnf4q7mlhkhzp3i1v052v9xn8qa7g845pk9ia8hlpw207pwy"))))
+                "1bs2fnf4q7mlhkhzp3i1v052v9xn8qa7g845pk9ia8hlpw207pwy"))
+              (patches
+               (parameterize ((%patch-path x8dcc-channel:%patch-path))
+                 ;; Credits for the patches:
+                 ;; https://aur.archlinux.org/packages/rtorrent-vi-color
+                 ;; https://gitlab.com/lindell.fredrik/rtorrent-vi-color
+                 (search-patches
+                  "rtorrent-0.9.8_vi_keybinding.patch"
+                  "rtorrent-0.9.8_compact_display.patch"
+                  "rtorrent-0.9.8_color.patch")))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--with-xmlrpc-c=yes")))
     (inputs (list libtorrent
@@ -42,6 +56,9 @@
     (description
      "rTorrent is a BitTorrent client with an ncurses interface.  It supports
 full encryption, DHT, PEX, and Magnet Links.  It can also be controlled via
-XML-RPC over SCGI.")
+XML-RPC over SCGI.
+
+This version enables support for XMLRPC and adds some patches for vi-like
+keybinds, compact display and color.")
     (home-page "https://github.com/rakshasa/rtorrent")
     (license license:gpl2+)))
