@@ -1,5 +1,5 @@
 diff --git a/src/command_network.cc b/src/command_network.cc
-index 0e53f17..be54373 100644
+index 092287a..4f71e83 100644
 --- a/src/command_network.cc
 +++ b/src/command_network.cc
 @@ -235,6 +235,26 @@ initialize_command_network() {
@@ -241,10 +241,10 @@ index 8e15cac..4551a47 100644
    core::View*         m_view;
  
 diff --git a/src/main.cc b/src/main.cc
-index 632d9f3..aee21c6 100644
+index 6be6a4d..70f7d07 100644
 --- a/src/main.cc
 +++ b/src/main.cc
-@@ -404,6 +404,15 @@ main(int argc, char** argv) {
+@@ -399,6 +399,15 @@ main(int argc, char** argv) {
      CMD2_REDIRECT        ("ip",         "network.local_address.set");
      CMD2_REDIRECT        ("port_range", "network.port_range.set");
  
@@ -261,10 +261,10 @@ index 632d9f3..aee21c6 100644
      CMD2_REDIRECT_GENERIC("dht_port", "dht.port.set");
  
 diff --git a/src/ui/download_list.cc b/src/ui/download_list.cc
-index f1d6af5..b3d31f4 100644
+index d98f2c9..ebd7038 100644
 --- a/src/ui/download_list.cc
 +++ b/src/ui/download_list.cc
-@@ -135,6 +135,12 @@ DownloadList::unfocus_download(core::Download* d) {
+@@ -135,6 +135,11 @@ DownloadList::unfocus_download(core::Download* d) {
        current_view()->next_focus();
  }
  
@@ -272,7 +272,6 @@ index f1d6af5..b3d31f4 100644
 +DownloadList::current_window_list() {
 +  return dynamic_cast<ElementDownloadList*>(m_uiArray[DISPLAY_DOWNLOAD_LIST])->window();
 +}
-+
 +
  void
  DownloadList::activate_display(Display displayType) {
@@ -435,10 +434,10 @@ index 074e972..c8130e9 100644
 +
  }
 diff --git a/src/ui/root.h b/src/ui/root.h
-index e695032..c783113 100644
+index 262de37..e6f2f6f 100644
 --- a/src/ui/root.h
 +++ b/src/ui/root.h
-@@ -90,6 +90,23 @@ public:
+@@ -88,6 +88,23 @@ public:
    void                set_down_throttle_i64(int64_t throttle) { set_down_throttle(throttle >> 10); }
    void                set_up_throttle_i64(int64_t throttle)   { set_up_throttle(throttle >> 10); }
  
@@ -462,10 +461,10 @@ index e695032..c783113 100644
    void                adjust_down_throttle(int throttle);
    void                adjust_up_throttle(int throttle);
  
-@@ -140,6 +157,15 @@ private:
+@@ -129,6 +146,15 @@ private:
+   void                next_in_input_history(ui::DownloadList::Input type);
  
-   ThrottleNameList    m_throttle_up_names;
-   ThrottleNameList    m_throttle_down_names;
+   void                reset_input_history_attributes(ui::DownloadList::Input type);
 +
 +  int64_t             color_inactive_fg;
 +  int64_t             color_inactive_bg;
