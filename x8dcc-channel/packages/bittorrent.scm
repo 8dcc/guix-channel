@@ -51,7 +51,8 @@ XML-RPC over SCGI.  This version enables support for XMLRPC.")
 
 (define-public rtorrent-vi-color
   (package
-    (inherit rtorrent-xmlrpc)
+   (inherit rtorrent-xmlrpc)
+    (name "rtorrent-vi-color")
     (version "0.9.8")
     (source
      (origin
