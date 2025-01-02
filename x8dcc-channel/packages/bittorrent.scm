@@ -18,30 +18,19 @@
   #:use-module (gnu packages check)
   #:use-module (gnu packages pkg-config))
 
-;; FIXME: Make another 'rtorrent-vi-color' package that "derives" from an
-;; un-patched 'rtorrent-xmlrpc' package. I don't currently know how this is
-;; done.
 (define-public rtorrent-xmlrpc
   (package
     (name "rtorrent-xmlrpc")
     (version "0.9.8")
-    (source (origin
-              (method url-fetch)
-              (uri (string-append
-                    "https://github.com/rakshasa/rtorrent-archive/raw/master/rtorrent-"
-                    version ".tar.gz"))
-              (sha256
-               (base32
-                "1bs2fnf4q7mlhkhzp3i1v052v9xn8qa7g845pk9ia8hlpw207pwy"))
-              (patches
-               (parameterize ((%patch-path x8dcc-channel:%patch-path))
-                 ;; Credits for the patches:
-                 ;; https://aur.archlinux.org/packages/rtorrent-vi-color
-                 ;; https://gitlab.com/lindell.fredrik/rtorrent-vi-color
-                 (search-patches
-                  "rtorrent-0.9.8_vi_keybinding.patch"
-                  "rtorrent-0.9.8_compact_display.patch"
-                  "rtorrent-0.9.8_color.patch")))))
+    (source
+     (origin
+      (method url-fetch)
+      (uri (string-append
+            "https://github.com/rakshasa/rtorrent-archive/raw/master/rtorrent-"
+            version ".tar.gz"))
+      (sha256
+       (base32
+        "1bs2fnf4q7mlhkhzp3i1v052v9xn8qa7g845pk9ia8hlpw207pwy"))))
     (build-system gnu-build-system)
     (arguments '(#:configure-flags '("--with-xmlrpc-c=yes")))
     (inputs (list libtorrent
@@ -56,9 +45,36 @@
     (description
      "rTorrent is a BitTorrent client with an ncurses interface.  It supports
 full encryption, DHT, PEX, and Magnet Links.  It can also be controlled via
-XML-RPC over SCGI.
-
-This version enables support for XMLRPC and adds some patches for vi-like
-keybinds, compact display and color.")
+XML-RPC over SCGI.  This version enables support for XMLRPC.")
     (home-page "https://github.com/rakshasa/rtorrent")
     (license license:gpl2+)))
+
+(define-public rtorrent-vi-color
+  (package
+    (inherit rtorrent-xmlrpc)
+    (version "0.9.8")
+    (source
+     (origin
+      (method url-fetch)
+      (uri (string-append
+            "https://github.com/rakshasa/rtorrent-archive/raw/master/rtorrent-"
+            version ".tar.gz"))
+      (sha256
+       (base32
+        "1bs2fnf4q7mlhkhzp3i1v052v9xn8qa7g845pk9ia8hlpw207pwy"))
+      (patches
+       (parameterize ((%patch-path x8dcc-channel:%patch-path))
+         ;; Credits for the patches:
+         ;; https://aur.archlinux.org/packages/rtorrent-vi-color
+         ;; https://gitlab.com/lindell.fredrik/rtorrent-vi-color
+         (search-patches
+          "rtorrent-0.9.8_vi_keybinding.patch"
+          "rtorrent-0.9.8_compact_display.patch"
+          "rtorrent-0.9.8_color.patch")))))
+    (synopsis "BitTorrent client with ncurses interface, color and vi keybinds")
+    (description "Variant of `rtorrent-xmlrpc' which adds some patches for:
+@itemize
+@item Vi-like keybinds
+@item Compact display
+@item Configurable colors
+@end itemize")))
