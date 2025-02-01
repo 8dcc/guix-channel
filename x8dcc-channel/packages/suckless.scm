@@ -27,9 +27,9 @@ performed.")
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles")
-             (commit "2054b218081abfc2db791da1db688730f1935bb6")))
+             (commit "0047d2a97dec7d6bd65a1c650b830754b1ab99f1")))
        (sha256
-        (base32 "1r369a5c3dq54kjzrfkd6i6im3ymgqfkd6ar8vs64a8s8jn88snl"))))
+        (base32 "1nf2simy5408c8k2xk7cg1hh0z37fgzqa67sqppc65h0cknh1y0i"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
