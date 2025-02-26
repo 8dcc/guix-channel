@@ -68,9 +68,9 @@ drawing.")
        (method git-fetch)
        (uri (git-reference
              (url "https://github.com/8dcc/linux-dotfiles")
-             (commit "50d8d779ef01e03a73c7361b4220e13aebbb92de")))
+             (commit "2bf5abaddecd07c47aef0886110b02b020ceba7b")))
        (sha256
-        (base32 "0riw50vc0wq25cn4plfqml12357b9s9lzdwg9qh7vcqhig0j9991"))))
+        (base32 "1069x17402cigg1pw8vwzwi8mvnwr4qgvjxmnwd5d3xcylk1927f"))))
     (build-system gnu-build-system)
     (arguments
      `(#:make-flags
