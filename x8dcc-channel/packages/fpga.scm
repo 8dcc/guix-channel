@@ -4,6 +4,7 @@
   #:use-module (guix download)
   #:use-module (guix build-system copy)
   #:use-module (guix build utils)
+  #:use-module (x8dcc-channel build binary-patch)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
@@ -37,7 +38,12 @@
         "1748lmggl9y9qkgknsd8941rn526yz10k0kgp02yvskl57mp4r0v"))))
     (build-system copy-build-system)
     (arguments
-     `(#:install-plan
+     `(#:modules ((x8dcc-channel build binary-patch)
+                  (guix build copy-build-system)
+                  (guix build utils))
+       #:imported-modules ((x8dcc-channel build binary-patch)
+                           ,@%copy-build-system-modules)
+       #:install-plan
        '(("IDE"        "share/gowin-eda/IDE")
          ("Programmer" "share/gowin-eda/Programmer"))
        #:phases
@@ -48,6 +54,28 @@
          (add-after 'unpack 'chdir-to-root
            (lambda _
              (chdir "..")))
+
+         ;; Patch the license verification code in `gw_ide'.
+         (add-after 'install 'patch-gw-ide
+           (lambda* (#:key outputs #:allow-other-keys)
+             (patch-bytes/mask
+              (string-append (assoc-ref outputs "out")
+                             "/share/gowin-eda/IDE/bin/gw_ide")
+              #vu8(#x85 #xC0               ; test eax, eax
+                   #x75 #x31               ; jne  0x405465
+                   #x8B #x7C #x24 #x1C     ; mov  edi, dword [rsp + 0x1c]
+                   #x4C #x89 #xF6          ; mov  rsi, r14
+                   #xE8)                   ; call ...
+              #vu8(#x85 #xC0
+                   #x74 #x31               ; Replace opcode 75 (JNE) -> 74 (JE)
+                   #x8B #x7C #x24 #x1C
+                   #x4C #x89 #xF6
+                   #xE8)
+              #vu8(#xFF #xFF
+                   #xFF #x00               ; Jump destination may vary
+                   #xFF #xFF #xFF #x00     ; Stack offset may vary
+                   #xFF #xFF #xFF
+                   #xFF))))
 
          ;; The bundled libfreetype.so.6 conflicts with the system
          ;; fontconfig and breaks IDE startup. See:
