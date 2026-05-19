@@ -1,0 +1,13 @@
+diff --git a/src/term.c b/src/term.c
+index dfb15afdb3..97ade5a0af 100644
+--- a/src/term.c
++++ b/src/term.c
+@@ -4340,7 +4340,7 @@ use the Bourne shell command 'TERM=...; export TERM' (C-shell:\n\
+                  "Screen size %dx%d is too small",
+                  FrameCols (tty), FrameRows (tty));
+ 
+-  TabWidth (tty) = tgetnum ("tw");
++  TabWidth (tty) = tgetnum ("it");
+ 
+   if (!tty->TS_bell)
+     tty->TS_bell = "\07";
