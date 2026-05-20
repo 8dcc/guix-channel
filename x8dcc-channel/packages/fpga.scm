@@ -55,6 +55,12 @@
            (lambda _
              (chdir "..")))
 
+         ;; Documentation directories are large and not needed at runtime.
+         (add-after 'chdir-to-root 'drop-doc
+           (lambda _
+             (for-each delete-file-recursively
+                       '("IDE/doc" "Programmer/doc"))))
+
          ;; Patch the license verification code in `gw_ide'.
          (add-after 'install 'patch-gw-ide
            (lambda* (#:key outputs #:allow-other-keys)
