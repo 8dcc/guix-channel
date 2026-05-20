@@ -20,7 +20,8 @@
   #:use-module (gnu packages tls)
   #:use-module (gnu packages tree-sitter)
   #:use-module (gnu packages web)
-  #:use-module (gnu packages xorg))
+  #:use-module (gnu packages xorg)
+  #:use-module (x8dcc-channel build dir-utils))
 
 (define-public emacs-29.4
   (package
@@ -44,6 +45,11 @@ every variant; the actual display backend is chosen by the children.")
     (build-system gnu-build-system)
     (arguments
      `(#:tests? #f
+       #:imported-modules ((x8dcc-channel build dir-utils)
+                           ,@%gnu-build-system-modules)
+       #:modules ((x8dcc-channel build dir-utils)
+                  (guix build gnu-build-system)
+                  (guix build utils))
        #:configure-flags
        (list
         ;; Strip host/build date from the version string. Helps with
@@ -70,7 +76,18 @@ every variant; the actual display backend is chosen by the children.")
         ;; Optimization flags. Note that '-march=native' breaks reproducibility,
         ;; so it is left commented out.
         "CFLAGS=-O2 -pipe"
-        )))
+        )
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'set-paths 'set-libgccjit-path
+           (lambda* (#:key inputs #:allow-other-keys)
+             (let* ((libgccjit-libdir
+                     (first-subdir
+                      (first-subdir
+                       (search-input-directory inputs "lib/gcc")))))
+               (setenv "LIBRARY_PATH"
+                       (string-append (or (getenv "LIBRARY_PATH") "")
+                                      ":" libgccjit-libdir))))))))
     (native-inputs
      (list autoconf
            pkg-config
