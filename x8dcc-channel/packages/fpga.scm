@@ -48,18 +48,17 @@
          ("Programmer" "share/gowin-eda/Programmer"))
        #:phases
        (modify-phases %standard-phases
-         ;; The tarball has `IDE' and `Programmer' as sibling top-level
-         ;; directories.  The default `unpack' phase chdirs into the first
-         ;; subdirectory it finds (`IDE'), so step back to see both.
-         (add-after 'unpack 'chdir-to-root
-           (lambda _
-             (chdir "..")))
 
-         ;; Documentation directories are large and not needed at runtime.
-         (add-after 'chdir-to-root 'drop-doc
-           (lambda _
-             (for-each delete-file-recursively
-                       '("IDE/doc" "Programmer/doc"))))
+         ;; The tarball has `IDE' and `Programmer' as sibling top-level
+         ;; directories.  Exclude the documentation to save space, and
+         ;; skip the default chdir-into-first-subdir behaviour so both
+         ;; directories are visible to the install phase.
+         (replace 'unpack
+           (lambda* (#:key source #:allow-other-keys)
+             (invoke "tar" "--extract"
+                     "--exclude=IDE/doc"
+                     "--exclude=Programmer/doc"
+                     "--file" source)))
 
          ;; Patch the license verification code in `gw_ide'.
          (add-after 'install 'patch-gw-ide
