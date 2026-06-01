@@ -18,6 +18,7 @@
   #:use-module (gnu packages pdf)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
+  #:use-module (gnu packages terminals)
   #:use-module (gnu packages tls)
   #:use-module (gnu packages tree-sitter)
   #:use-module (gnu packages web)
@@ -131,7 +132,15 @@ every variant; the actual display backend is chosen by the children.")
                      (substring content 0 (+ i (string-length marker)))
                      options
                      (substring content j))
-                    port)))))))))
+                    port))))))
+
+         (add-after 'install 'wrap-emacs-binary
+           (lambda* (#:key inputs outputs #:allow-other-keys)
+             (let* ((out (assoc-ref outputs "out"))
+                    (libvterm-lib
+                     (dirname (search-input-file inputs "/lib/libvterm.so"))))
+               (wrap-program (string-append out "/bin/emacs")
+                 `("LD_LIBRARY_PATH" ":" prefix (,libvterm-lib)))))))))
 
     (native-inputs
      (list autoconf
@@ -142,6 +151,7 @@ every variant; the actual display backend is chosen by the children.")
            harfbuzz
            jansson
            libgccjit
+           libvterm
            ncurses
            tree-sitter
            zlib))))
