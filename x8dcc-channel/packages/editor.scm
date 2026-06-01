@@ -170,10 +170,30 @@ closest analogue to Arch's main @code{emacs} package.")
     (build-system glib-or-gtk-build-system)
     (arguments
      (substitute-keyword-arguments (package-arguments emacs-29.4)
+       ((#:imported-modules _)
+        `((x8dcc-channel build dir-utils)
+          ,@%glib-or-gtk-build-system-modules))
+       ((#:modules _)
+        '((x8dcc-channel build dir-utils)
+          (guix build glib-or-gtk-build-system)
+          (guix build utils)))
        ((#:configure-flags flags)
         `(append (list "--with-x-toolkit=gtk3"
                        "--with-cairo")
-                 ,flags))))
+                 ,flags))
+       ((#:phases phases)
+        `(modify-phases ,phases
+
+         ;; glib-or-gtk-wrap treats the pdmp as an executable and replaces
+         ;; it with a shell script; rename it back so Emacs can load it.
+         (add-after 'glib-or-gtk-wrap 'restore-emacs-pdmp
+             (lambda* (#:key outputs #:allow-other-keys)
+               (let* ((libexec (string-append (assoc-ref outputs "out")
+                                              "/libexec"))
+                      (pdmp (find-files libexec "\\.pdmp$"))
+                      (pdmp-real (find-files libexec "\\.pdmp-real$")))
+                 (for-each rename-file pdmp-real pdmp))))))))
+
     (inputs
      (modify-inputs (package-inputs emacs-29.4)
        (prepend cairo
