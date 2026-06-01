@@ -50,6 +50,7 @@ every variant; the actual display backend is chosen by the children.")
        #:modules ((x8dcc-channel build dir-utils)
                   (guix build gnu-build-system)
                   (guix build utils))
+
        #:configure-flags
        (list
         ;; Strip host/build date from the version string. Helps with
@@ -75,8 +76,8 @@ every variant; the actual display backend is chosen by the children.")
 
         ;; Optimization flags. Note that '-march=native' breaks reproducibility,
         ;; so it is left commented out.
-        "CFLAGS=-O2 -pipe"
-        )
+        "CFLAGS=-O2 -pipe")
+
        #:phases
        (modify-phases %standard-phases
          (add-after 'set-paths 'set-libgccjit-path
@@ -87,7 +88,50 @@ every variant; the actual display backend is chosen by the children.")
                        (search-input-directory inputs "lib/gcc")))))
                (setenv "LIBRARY_PATH"
                        (string-append (or (getenv "LIBRARY_PATH") "")
-                                      ":" libgccjit-libdir))))))))
+                                      ":" libgccjit-libdir)))))
+
+         ;; Hardcode the GCC driver search paths into native-comp-driver-options
+         ;; so that libgccjit can find crtbeginS.o and libgcc at runtime when
+         ;; JIT-compiling Elisp packages.  substitute* won't work here because
+         ;; it operates line-by-line; the defcustom initial value spans two
+         ;; lines in Emacs 29.4.
+         (add-after 'unpack 'patch-compilation-driver
+           (lambda* (#:key inputs #:allow-other-keys)
+             (let* ((file "lisp/emacs-lisp/comp.el")
+                    (content
+                     (call-with-input-file file
+                       (lambda (port)
+                         (let loop ((acc '()))
+                           (let ((c (read-char port)))
+                             (if (eof-object? c)
+                                 (list->string (reverse acc))
+                                 (loop (cons c acc))))))))
+                    (options
+                     (format #f "'(~@{~s~^ ~})"
+                             (string-append
+                              "-B" (dirname (search-input-file inputs "/bin/nm")))
+                             (string-append
+                              "-B" (dirname (search-input-file inputs "/lib/libc.so")))
+                             (string-append
+                              "-B" (dirname (search-input-file inputs "/lib/libgccjit.so")))
+                             (string-append
+                              "-B" (string-append
+                                    (dirname (search-input-file inputs "/lib/libgccjit.so"))
+                                    "/gcc"))))
+                    (marker "(defcustom native-comp-driver-options ")
+                    (i (string-contains content marker))
+                    (j (and i (string-contains content "\n  \"" i))))
+               (unless j
+                 (error "Could not locate native-comp-driver-options in comp.el"))
+               (call-with-output-file file
+                 (lambda (port)
+                   (display
+                    (string-append
+                     (substring content 0 (+ i (string-length marker)))
+                     options
+                     (substring content j))
+                    port)))))))))
+
     (native-inputs
      (list autoconf
            pkg-config
