@@ -1,8 +1,8 @@
 diff --git a/src/term.c b/src/term.c
-index dfb15afdb3..97ade5a0af 100644
+index dfb15afdb3f..f60acb6a104 100644
 --- a/src/term.c
 +++ b/src/term.c
-@@ -4340,7 +4340,7 @@ use the Bourne shell command 'TERM=...; export TERM' (C-shell:\n\
+@@ -4340,7 +4340,7 @@ init_tty (const char *name, const char *terminal_type, bool must_succeed)
                   "Screen size %dx%d is too small",
                   FrameCols (tty), FrameRows (tty));
  
@@ -11,3 +11,12 @@ index dfb15afdb3..97ade5a0af 100644
  
    if (!tty->TS_bell)
      tty->TS_bell = "\07";
+@@ -4430,7 +4430,7 @@ init_tty (const char *name, const char *terminal_type, bool must_succeed)
+     = tty->TS_delete_mode && tty->TS_insert_mode
+     && !strcmp (tty->TS_delete_mode, tty->TS_insert_mode);
+ 
+-  UseTabs (tty) = tabs_safe_p (fileno (tty->input)) && TabWidth (tty) == 8;
++  UseTabs (tty) = tabs_safe_p (fileno (tty->input)) && TabWidth (tty) > 0;
+ 
+   tty->scroll_region_ok
+     = (tty->Wcm->cm_abs
