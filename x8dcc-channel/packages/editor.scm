@@ -15,6 +15,7 @@
   #:use-module (gnu packages gtk)
   #:use-module (gnu packages image)
   #:use-module (gnu packages ncurses)
+  #:use-module (gnu packages pdf)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
   #:use-module (gnu packages tls)
@@ -197,12 +198,17 @@ closest analogue to Arch's main @code{emacs} package.")
     (inputs
      (modify-inputs (package-inputs emacs-29.4)
        (prepend cairo
+                dbus
+                giflib
                 gtk+
+                libotf
                 libpng
                 (librsvg-for-system)
                 libjpeg-turbo
                 libtiff
+                libwebp
                 libx11
                 libxft
                 libxpm
-                pango)))))
+                pango
+                poppler)))))
